@@ -1,5 +1,5 @@
 const app = require( './config/server' )
 
-app.listen( '80', () => {
+app.listen( process.env.PORT, ( req, res ) => {
     console.log( 'Servidor online' )
 })
