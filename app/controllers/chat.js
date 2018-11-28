@@ -12,5 +12,12 @@ module.exports.iniciaChat = ( application, req, res ) => {
         return;
     }
     
+    const msg = {
+        apelido: dadosForm.apelido,
+        mensagem: 'acabou de entrar no chat.'
+    }
+    
+    application.get('io').emit( 'msgParaClient', msg )
+    
     res.render( 'chat' )
 }

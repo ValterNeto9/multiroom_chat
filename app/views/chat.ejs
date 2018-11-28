@@ -71,31 +71,8 @@
 		<div class="container">
             <div class="row conversa" id="conversa">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
-					<div class="dialogo">
-						<h4>Jorge</h4>
-						<p>Fala José, blz cara?</p>
-					</div>
+				<div class="col-md-10" id="dialogos">
 					
-					<div class="dialogo">
-						<h4>José</h4>
-						<p>Opa, tudo certo!</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>Jorge</h4>
-						<p>Vai estudar mais sobre NodeJS hoje?</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>José</h4>
-						<p>Sim, com certeza. Vamos trabalhar com Websockets hoje, o assunto é bem interessante</p>
-					</div>
-					
-					<div class="dialogo">
-						<h4>Jorge</h4>
-						<p>Show de bola, comunicação bi-direcional em páginas ou sistemas web é muito bacana mesmo</p>
-					</div>
 				</div>
 				<div class="col-md-1"></div>
                 
@@ -104,20 +81,7 @@
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Jorge
-					</span>
 					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						José
-					</span>
-					
-					<span class="participante">
-						<img src="images/ico_usuario.png" />
-						Fernando
-					</span>
 				</div>
 				<div class="col-md-1"></div>
                 
@@ -142,6 +106,23 @@
 		</nav>		
 		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io('https://get-start-mean-valterneto9.c9users.io')
+			
+			socket.on( 'msgParaClient', ( data ) => {
+				var html = `
+					<div class="dialogo">
+						<h4> ${ data.apelido } </h4>
+						<p> ${ data.mensagem } </p>
+					</div>
+				`
+				
+				$('#dialogos').append( html )
+			})
+			
+			
+			
+		</script>
 	</body>
 </html>
