@@ -91,16 +91,15 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
 				<div class="panel-body campo-mensagem">
-					<form>
-						<div class="col-md-12">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Mensagem">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">></button>
-								</span>
-							</div>
+					<div class="col-md-12">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
+							<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" id="enviar">></button>
+							</span>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</nav>		
@@ -109,6 +108,16 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			var socket = io('https://get-start-mean-valterneto9.c9users.io')
+			
+			$('#enviar').click( () => {
+				
+				var msg = $('#mensagem').val()
+				var apelido = $('#apelido').val()
+				
+				var data = { apelido: apelido, mensagem: msg }
+				
+				socket.emit( 'msgParaServidor', data )
+			})
 			
 			socket.on( 'msgParaClient', ( data ) => {
 				var html = `

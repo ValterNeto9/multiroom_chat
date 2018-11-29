@@ -19,5 +19,5 @@ module.exports.iniciaChat = ( application, req, res ) => {
     
     application.get('io').emit( 'msgParaClient', msg )
     
-    res.render( 'chat' )
+    res.render( 'chat', { dadosForm: dadosForm } )
 }

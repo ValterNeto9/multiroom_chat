@@ -13,6 +13,20 @@ const socketEvents = socket => {
     console.log( 'Usuário conectou!' )
     
     socket.on( 'disconnect', () => console.log( 'Usuário desconectou!' ) )
+    
+    socket.on( 'msgParaServidor', ( data ) => {
+        
+        socket.emit( 'msgParaClient', {
+            apelido: data.apelido,
+            mensagem: data.mensagem
+        })
+        
+        socket.broadcast.emit( 'msgParaClient', {
+            apelido: data.apelido,
+            mensagem: data.mensagem
+        })
+        
+    })
 }
 
 io.on( 'connection', socketEvents )
