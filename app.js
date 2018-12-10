@@ -25,6 +25,17 @@ const socketEvents = socket => {
             apelido: data.apelido,
             mensagem: data.mensagem
         })
+       
+       if ( parseInt( data.mensagemEfetuadaParticipante ) === 0 ){
+           
+            socket.emit( 'participantesParaClient', {
+                apelido: data.apelido
+            })
+            
+            socket.broadcast.emit( 'participantesParaClient', {
+                apelido: data.apelido
+            })
+       }
         
     })
 }

@@ -80,7 +80,7 @@
 			
 			<div class="row participantes" id="participantes" style="display:none">
 				<div class="col-md-1"></div>
-				<div class="col-md-10">
+				<div class="col-md-10" id="pessoas">
 					
 				</div>
 				<div class="col-md-1"></div>
@@ -95,6 +95,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
 							<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
+							<input type="hidden" value="0" id="mensagemEfetuadaParticipante">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="button" id="enviar">></button>
 							</span>
@@ -113,10 +114,16 @@
 				
 				var msg = $('#mensagem').val()
 				var apelido = $('#apelido').val()
+				var msgEfetuada = $('#mensagemEfetuadaParticipante').val()
 				
-				var data = { apelido: apelido, mensagem: msg }
+				var data = { apelido: apelido, mensagem: msg, mensagemEfetuadaParticipante: msgEfetuada }
 				
 				socket.emit( 'msgParaServidor', data )
+				
+				$('#mensagem').val("")
+				$('#mensagemEfetuadaParticipante').val(1)
+				
+				window.scrollTo( 0, document.body.scrollHeight )
 			})
 			
 			socket.on( 'msgParaClient', ( data ) => {
@@ -130,7 +137,15 @@
 				$('#dialogos').append( html )
 			})
 			
-			
+			socket.on( 'participantesParaClient', ( data ) => {
+				var html = `
+					<span class="participante">
+						<img src="images/ico_usuario.png"/>
+						${ data.apelido }
+					</span>
+				`
+				$('#pessoas').append( html )
+			})
 			
 		</script>
 	</body>
