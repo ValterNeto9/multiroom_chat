@@ -1,2 +1,2 @@
 # multiroom_chat
-Um chat multi salas - NodeJS e MongoDB
+Um chat multi salas - NodeJS
